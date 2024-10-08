@@ -1,3 +1,30 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+@layer components{
+  .click_nobg{
+    @apply py-3 md:px-4 px-2 rounded-lg active:scale-105 transition-all
+  }
+}
+
+@layer components{
+  .align-center{
+    @apply max-w-[1440px] w-full mx-auto px-5
+  }
+  .image-hover{
+    @apply bg-white/[.9] hover:bg-white text-black/[.7] border-none hover:text-black md:w-10 md:h-8 w-6 h-5 rounded-sm md:rounded-lg  transition-all  absolute  cursor-pointer
+  }
+}
+
+@layer utilities{
+  html,body,#root{
+    @apply h-full      
+  }
+  main{
+    @apply grow
+  }
+  #root{
+    @apply flex flex-col
+  }
+}
