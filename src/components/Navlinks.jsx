@@ -1,5 +1,5 @@
 import React from "react";
-import {Link} from "react-router-dom";
+import { Link } from "react-router-dom";
 
 const Navlinks = () => {
   const links = [
@@ -15,19 +15,15 @@ const Navlinks = () => {
       path: "/contact",
       text: "Contact",
     },
-
   ];
 
   return (
     <>
-        {links.map((link) => (<li key={link.path}>
-          <Link
-            
-            to={link.path}>
-            {link.text}
-          </Link>
-          </li>
-        ))}
+      {links.map((link) => (
+        <li key={link.path}>
+          <Link to={link.path}>{link.text}</Link>
+        </li>
+      ))}
     </>
   );
 };

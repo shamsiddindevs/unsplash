@@ -1,22 +1,27 @@
 import React from "react";
-import {Form, useActionData} from "react-router-dom";
+import { Form, useActionData } from "react-router-dom";
 import FormInput from "../components/FormInput";
 
 // action
-export const action = async ({request}) => {
+export const action = async ({ request }) => {
   let formData = await request.formData();
   let name = formData.get("name");
   let massage = formData.get("massage");
-  return {name,massage};
+  return { name, massage };
 };
 
 const Contact = () => {
-  const data = useActionData()
+  const data = useActionData();
   return (
     <>
-      <div className="text-center  h-full flex flex-col  justify-center items-center w-full gap-10">
-        <Form method="POST" className="flex w-2/5 flex-col  justify-center items-center gap-5">
-          <label htmlFor="contact" className="text-2xl md:text-4xl">Contact</label>
+      <div className="flex h-full w-full flex-col items-center justify-center gap-10 text-center">
+        <Form
+          method="POST"
+          className="flex w-4/5 md:w-2/5 flex-col items-center justify-center gap-5"
+        >
+          <label htmlFor="contact" className="text-2xl md:text-4xl">
+            Contact
+          </label>
           <FormInput
             type={"text"}
             name={"name"}
@@ -30,7 +35,7 @@ const Contact = () => {
             icon={true}
           />
           {/* button oshibka */}
-          <div className="btn btn-secondary w-full">Submit</div>
+          <div className="btn btn-secondary btn-sm md:btn-md w-full">Submit</div>
         </Form>
       </div>
     </>

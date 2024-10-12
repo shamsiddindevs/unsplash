@@ -2,29 +2,31 @@
 @tailwind components;
 @tailwind utilities;
 
-@layer components{
-  .click_nobg{
-    @apply py-3 md:px-4 px-2 rounded-lg active:scale-105 transition-all
+@layer components {
+  .click_nobg {
+    @apply rounded-lg px-2 py-3 transition-all active:scale-105 md:px-4;
   }
 }
 
-@layer components{
-  .align-center{
-    @apply max-w-[1440px] w-full mx-auto px-5
+@layer components {
+  .align-center {
+    @apply mx-auto w-full max-w-[1440px] px-5;
   }
-  .image-hover{
-    @apply bg-white/[.9] hover:bg-white text-black/[.7] border-none hover:text-black md:w-10 md:h-8 w-6 h-5 rounded-sm md:rounded-lg  transition-all  absolute  cursor-pointer
+  .image-hover {
+    @apply absolute h-5 w-6 cursor-pointer rounded-sm border-none bg-white/[.9] text-black/[.7] transition-all hover:bg-white hover:text-black md:h-8 md:w-10 md:rounded-lg;
   }
 }
 
-@layer utilities{
-  html,body,#root{
-    @apply h-full      
+@layer utilities {
+  html,
+  body,
+  #root {
+    @apply h-full;
   }
-  main{
-    @apply grow
+  main {
+    @apply grow;
   }
-  #root{
-    @apply flex flex-col
+  #root {
+    @apply flex flex-col;
   }
 }

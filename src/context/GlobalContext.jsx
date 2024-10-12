@@ -1,9 +1,9 @@
-import {createContext, useEffect, useReducer} from "react";
-import {toast} from "react-toastify";
+import { createContext, useEffect, useReducer } from "react";
+import { toast } from "react-toastify";
 
 export const GlobalContext = createContext();
 
-export function GlobalContextProvider({children}) {
+export function GlobalContextProvider({ children }) {
   const dataFromJson = () => {
     return (
       JSON.parse(localStorage.getItem("my-splash")) ?? {
@@ -14,11 +14,11 @@ export function GlobalContextProvider({children}) {
   };
 
   const changeColor = (state, action) => {
-    const {type, payload} = action;
+    const { type, payload } = action;
 
     switch (type) {
       case "LIKE":
-        return {...state, liked: [...state.liked, payload]};
+        return { ...state, liked: [...state.liked, payload] };
         if (payload.hasImg) {
           if (state.liked?.some((v) => v.id == payload.id)) {
             toast.warn("You have already done !");
@@ -28,13 +28,13 @@ export function GlobalContextProvider({children}) {
         } else {
         }
       case "DOWNLOAD":
-          return {...state, download: [...state.download, payload]};  
-        
+        return { ...state, download: [...state.download, payload] };
+
       case "DELETE":
-          return {
-              ...state,
-              download: state.download.filter((v) => v.id !== payload),
-            };
+        return {
+          ...state,
+          download: state.download.filter((v) => v.id !== payload),
+        };
 
       case "UNLIKE":
         return {
@@ -56,7 +56,7 @@ export function GlobalContextProvider({children}) {
   }, [state]);
 
   return (
-    <GlobalContext.Provider value={{likedImages: state, dispatch}}>
+    <GlobalContext.Provider value={{ likedImages: state, dispatch }}>
       {children}
     </GlobalContext.Provider>
   );
