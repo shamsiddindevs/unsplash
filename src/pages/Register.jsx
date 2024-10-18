@@ -5,6 +5,8 @@ import FormInput from "../components/FormInput";
 import { useRegister } from "../hooks/useRegister";
 import { toast } from "react-toastify";
 
+
+// Action data from Form routes
 export const action = async ({ request, params }) => {
   let formData = await request.formData();
   let name = formData.get("name");
@@ -12,7 +14,7 @@ export const action = async ({ request, params }) => {
   let password = formData.get("password");
   let confirmPasword = formData.get("confirmPassword");
   if(password == confirmPasword){
-    return { name, email, password, confirmPasword };
+    return { name, email, password};
   }else{
     toast.warning("password is not equal !")
     return null
@@ -20,13 +22,14 @@ export const action = async ({ request, params }) => {
 };
 
 const Register = () => {
+  const {registerWithGoogle,registerWithEmail} = useRegister()
+
+  // using action data
   const dataFromAction = useActionData();
   useEffect(()=>{
-    dataFromAction && console.log(dataFromAction)
+    dataFromAction && registerWithEmail(dataFromAction.name,dataFromAction.email,dataFromAction.password)
   },[dataFromAction])
-  // console.log(dataFromAction);
-  const {registerWithGoogle} = useRegister()
-  // console.log("ali",registerWithGoogle)
+
  
 
   return (
@@ -81,7 +84,7 @@ const Register = () => {
 
             <div className="flex gap-5 flex-col md:flex-row">
               <button
-              
+              onClick={registerWithEmail}
                 type="submit"
                 className="btn btn-sm md:btn-md grow btn-secondary"
               >

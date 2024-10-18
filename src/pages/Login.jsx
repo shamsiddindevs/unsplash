@@ -4,20 +4,23 @@ import FormInput from "../components/FormInput";
 import { FcGoogle } from "react-icons/fc";
 import { useRegister } from "../hooks/useRegister";
 
+
+// action
 export const action = async ({ request, params }) => {
   let formData = await request.formData();
-
   let email = formData.get("email");
   let password = formData.get("password");
   return { email, password };
 };
 
 const Login = () => {
-  const {registerWithGoogle} = useRegister()
+  const {registerWithGoogle,signInWithEmail} = useRegister()
+
   const dataFromAction = useActionData();
   useEffect(()=>{
-    dataFromAction && console.log(dataFromAction)
+    dataFromAction && signInWithEmail(dataFromAction.email,dataFromAction.password)
   },[dataFromAction])
+
   return (
     <div className="flex min-h-screen bg-gray-50">
       {/* Image on the left side */}
@@ -54,6 +57,7 @@ const Login = () => {
             </div>
             <div className="flex flex-col gap-5 md:flex-row">
               <button
+              onClick={signInWithEmail}
                 type="submit"
                 className="btn btn-secondary btn-sm grow md:btn-md"
               >
