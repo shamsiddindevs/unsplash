@@ -13,7 +13,7 @@ const ImageContainer = ({ allImages }) => {
             className="my-5"
             columnsCountBreakPoints={{ 350: 2, 750: 3, 900: 4 }}
           >
-            <Masonry gutter="20px">
+            <Masonry gutter="15px">
               {allImages.map((image) => (
                 <Image
                   key={image.id}

@@ -21,6 +21,9 @@ export const action = async ({ request }) => {
   }
 };
 
+export const loader = async()=>{
+  return "Laoding..."
+}
 // let a = useFetch('https://jsonplaceholder.typicode.com/todos/1');
 
 const Home = () => {
@@ -28,6 +31,7 @@ const Home = () => {
   const searchParamFromAction = useActionData();
   const [allImages, setAllImages] = useState([]);
   // console.log(import.meta.env.VITE_ACCESS_KEY);
+ 
 
   const prevSearchParam = useRef(searchParamFromAction);
 

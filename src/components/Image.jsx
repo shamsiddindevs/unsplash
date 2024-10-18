@@ -45,7 +45,7 @@ const Image = ({ image, add, click }) => {
       <Link
         to={`imageinfo/${image.id}`}
         className="invisible absolute left-0 top-0 z-10 h-full w-full cursor-zoom-in rounded-lg bg-black/[.2] opacity-0 transition-all duration-300 group-hover:visible group-hover:opacity-100"
-      >
+      > 
         {/* heart */}
         {!add && (
           <span

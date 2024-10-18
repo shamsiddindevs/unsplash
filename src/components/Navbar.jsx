@@ -6,13 +6,18 @@ import Navlinks from "./Navlinks";
 import { useGlobalContext } from "../hooks/useGlobalContext";
 import { IoMdDownload } from "react-icons/io";
 
+// fireBase
+import { signOut } from "firebase/auth";
+import { auth } from "../firebase/firebaseConfig";
+import { toast } from "react-toastify";
+
 const Navbar = () => {
   const fromLocal = () => {
     return localStorage.getItem("theme") || "winter";
   };
 
   const {
-    likedImages: { liked, download },
+    likedImages: { liked, download, user },dispatch
   } = useGlobalContext();
 
   const [theme, setTheme] = useState(fromLocal());
@@ -26,6 +31,18 @@ const Navbar = () => {
     localStorage.setItem("theme", theme);
     document.documentElement.setAttribute("data-theme", theme);
   }, [theme]);
+
+  const signOutWithGoogle =  () => {
+   signOut(auth)
+      .then(() => {
+        dispatch({type:"LOGOUT"})
+        toast.success("See you again.")
+      })
+      .catch((error) => {
+        // An error happened.
+        toast.error(error.message)
+      });
+  };
 
   return (
     <header className="align-center w-full bg-base-100">
@@ -55,7 +72,7 @@ const Navbar = () => {
         </div>
         <div className="navbar-center hidden md:block">
           {" "}
-          <ul className="menu menu-horizontal rounded-box">
+          <ul className="menu menu-horizontal gap-4 rounded-box">
             <Navlinks />
           </ul>
         </div>
@@ -99,6 +116,37 @@ const Navbar = () => {
               {/* moon icon */}
               <IoMdMoon className="swap-on h-5 w-5 fill-current" />
             </label>
+          </div>
+          <div className="dropdown dropdown-end">
+            <div
+              tabIndex={0}
+              role="button"
+              className="avatar rounded-full p-1 transition-all hover:bg-slate-200 active:scale-105"
+            >
+              <div className="w-7 rounded-full">
+                <img alt="Tailwind CSS Navbar component" src={user.photoURL} />
+              </div>
+            </div>
+            <ul
+              tabIndex={0}
+              className="menu dropdown-content menu-sm z-[1] mt-3 w-52 rounded-box bg-base-100 p-2 shadow"
+            >
+              <li>
+                <h3>{user.displayName}</h3>
+              </li>
+              <li>
+                <a className="justify-between">
+                  Profile
+                  <span className="badge">new</span>
+                </a>
+              </li>
+              <li>
+                <a>Settings</a>
+              </li>
+              <li onClick={signOutWithGoogle}>
+                <a >Logout</a>
+              </li>
+            </ul>
           </div>
         </div>
       </div>
