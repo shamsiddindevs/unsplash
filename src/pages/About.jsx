@@ -1,25 +1,34 @@
-import React from "react";
+import React from 'react';
+import profile from "../assets/img/profile.jpg"
 
 const About = () => {
   return (
-    <div className="align-center py-5">
-      <div className="flex flex-col items-center justify-center gap-10 md:flex-row">
-        {/* Image Section */}
-        <img
-          src="https://via.placeholder.com/400"
-          alt="Sample Image"
-          className="w-full max-w-sm rounded-lg shadow-2xl"
-        />
-        {/* Text Section */}
-        <div className="max-w-lg md:ml-4">
-          <h1 className="text-2xl font-bold md:text-4xl">About Us</h1>
-          <p className="py-6">
-            We are committed to delivering high-quality services and solutions
-            that meet the needs of our customers. Our mission is to provide
-            excellent and innovative services that contribute to the growth and
-            success of our clients.
+    <div className="min-h-screen bg-base-100 py-12">
+      <div className="container mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="flex flex-col items-center">
+          <h1 className="text-4xl font-bold mb-6 text-center">About Me</h1>
+          <div className="avatar mb-8">
+            <div className="w-32 rounded-full ring ring-primary ring-offset-base-100 ring-offset-2">
+              <img src={profile} className='scale-150' alt="Profile" />
+            </div>
+          </div>
+          <p className="text-lg text-center max-w-2xl mb-4">
+            Hello! I'm Saminjonov Jamshid, a passionate web developer and designer with a love for crafting intuitive and visually appealing user experiences. With a strong background in front-end development and an eye for design, I bring ideas to life through code.
           </p>
-          <button className="btn btn-secondary">Learn More</button>
+          <p className="text-lg text-center max-w-2xl mb-4">
+            Over the past few years, I've honed my skills in HTML, CSS, JavaScript, and modern frameworks like React and TailwindCSS. I believe in writing clean, efficient code and continuously improving my craft.
+          </p>
+          <div className="mt-8">
+            <h2 className="text-2xl font-semibold mb-4">Skills</h2>
+            <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
+              <div className="badge badge-primary">HTML</div>
+              <div className="badge badge-primary">CSS</div>
+              <div className="badge badge-primary">JavaScript</div>
+              <div className="badge badge-primary">React</div>
+              <div className="badge badge-primary">TailwindCSS</div>
+              <div className="badge badge-primary">Git</div>
+            </div>
+          </div>
         </div>
       </div>
     </div>
@@ -27,3 +36,4 @@ const About = () => {
 };
 
 export default About;
+

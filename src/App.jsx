@@ -12,6 +12,7 @@ import {
   ImageInfo,
   Login,
   Register,
+  Profile,
 } from "./pages";
 // routers
 import {
@@ -71,6 +72,10 @@ const App = () => {
         {
           path: "imageinfo/:id",
           element: <ImageInfo />,
+        },
+        {
+          path: "profile",
+          element: <Profile />,
         },
         {
           path: "*",

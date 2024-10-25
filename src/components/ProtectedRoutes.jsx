@@ -3,7 +3,7 @@ import { Navigate } from "react-router";
 import { Login } from "../pages";
 
 const ProtectedRoutes = ({ children, user }) => {
-    console.log(user)
+    // console.log(user)
   if (user) {
     return children;
   } else {

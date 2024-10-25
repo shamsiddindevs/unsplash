@@ -1,5 +1,5 @@
 import React from "react";
-import { FaDownload, FaHeart } from "react-icons/fa";
+import { FaHeart } from "react-icons/fa";
 import { IoMdDownload } from "react-icons/io";
 import { FaCircleCheck } from "react-icons/fa6";
 import { MdDelete } from "react-icons/md";
@@ -7,30 +7,43 @@ import { MdDelete } from "react-icons/md";
 import { useGlobalContext } from "../hooks/useGlobalContext";
 import { Link } from "react-router-dom";
 
+// useFirestore hooks
+import { useFirestore } from "../hooks/useFirestore";
+import { toast } from "react-toastify";
+
 const Image = ({ image, add, click }) => {
   const { id, urls, links, user, alt, hasImg } = image;
   const { likedImages, dispatch } = useGlobalContext();
-  console.log(add);
 
-  //   add global context images
+  const { addDocument, deleteDocument } = useFirestore();
+
+  //   add firestore  liked images
   function addLikedImages(img, e) {
     e.preventDefault();
-    let alreadyAddImage = likedImages?.liked.some((v) => v.id == img.id);
-    if (!alreadyAddImage) {
-      dispatch({ type: "LIKE", payload: img });
+    if (!likedImages?.user.emailVerified) {
+      console.log(likedImages?.user.emailVerified)
+      return toast.info("Please verified your email, Go to Profile page ! ");
+    }
+    let alreadyAddImage = likedImages?.liked.find((v) => v.id == img.id);
+    if (!alreadyAddImage?.id) {
+      addDocument("images", { ...image, uid: likedImages.user.uid });
     } else {
-      dispatch({ type: "UNLIKE", payload: img.id });
+      deleteDocument("images", alreadyAddImage._id);
     }
   }
   // add Download
   function addDownloadImages(img, e) {
     e.preventDefault();
-    let alreadyAddImage = likedImages?.download.some((v) => v.id == img.id);
-    if (!alreadyAddImage) {
+    if (!likedImages?.user.emailVerified) {
+      return toast.info("Please verified your email, Go to Profile page ! ");
+    }
+    let alreadyAddImage = likedImages?.download.find((v) => v.id == img.id);
+    // console.log(alreadyAddImage.id)
+    if (!alreadyAddImage?.id) {
       window.open(links?.download + "&force=true", "_blank");
-      dispatch({ type: "DOWNLOAD", payload: img });
+      addDocument("download", { ...image, uid: likedImages.user.uid });
     } else {
-      dispatch({ type: "DELETE", payload: img.id });
+      deleteDocument("download", alreadyAddImage._id);
     }
   }
 
@@ -45,7 +58,7 @@ const Image = ({ image, add, click }) => {
       <Link
         to={`imageinfo/${image.id}`}
         className="invisible absolute left-0 top-0 z-10 h-full w-full cursor-zoom-in rounded-lg bg-black/[.2] opacity-0 transition-all duration-300 group-hover:visible group-hover:opacity-100"
-      > 
+      >
         {/* heart */}
         {!add && (
           <span

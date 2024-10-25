@@ -1,27 +1,42 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { Form, Link, useActionData } from "react-router-dom";
 import FormInput from "../components/FormInput";
 import { FcGoogle } from "react-icons/fc";
 import { useRegister } from "../hooks/useRegister";
-
+import { Modal } from "../components";
 
 // action
 export const action = async ({ request, params }) => {
+  
   let formData = await request.formData();
   let email = formData.get("email");
   let password = formData.get("password");
+  let emailForReset = formData.get("emailForReset");
+  
+  if (emailForReset?.trim()) {
+    return { emailForReset };
+  }
+
   return { email, password };
 };
 
 const Login = () => {
-  const {registerWithGoogle,signInWithEmail} = useRegister()
+//  
+
+  const { registerWithGoogle, signInWithEmail } = useRegister();
 
   const dataFromAction = useActionData();
-  useEffect(()=>{
-    dataFromAction && signInWithEmail(dataFromAction.email,dataFromAction.password)
-  },[dataFromAction])
+  useEffect(() => {
+    (dataFromAction?.email&&dataFromAction?.password) &&
+      signInWithEmail(dataFromAction.email, dataFromAction.password);
+  }, [dataFromAction]);
+  // from modal
+ 
+  // console.log(dataFromAction);
 
   return (
+    <>
+    <Modal/>
     <div className="flex min-h-screen bg-gray-50">
       {/* Image on the left side */}
       <div
@@ -57,14 +72,14 @@ const Login = () => {
             </div>
             <div className="flex flex-col gap-5 md:flex-row">
               <button
-              onClick={signInWithEmail}
+                onClick={signInWithEmail}
                 type="submit"
                 className="btn btn-secondary btn-sm grow md:btn-md"
               >
                 Sign in
               </button>
               <button
-              onClick={registerWithGoogle}
+                onClick={registerWithGoogle}
                 type="button"
                 className="btn-light btn btn-sm flex grow gap-1 border border-slate-400 md:btn-md"
               >
@@ -72,13 +87,14 @@ const Login = () => {
               </button>
             </div>
           </Form>
-          <div className="flex flex-col items-center md:justify-between md:flex-row">
-            <Link
-              to="/forgot-password"
-              className="font-medium text-indigo-600 hover:text-indigo-500"
-            >
-              Forgot your password?
-            </Link>
+          <div className="flex flex-col items-center md:flex-row md:justify-between">
+            <div>
+              
+              <button className="cursor underline" onClick={()=>document.getElementById('my_modal_1').showModal()}>
+                Forget password ?
+              </button>
+            </div>
+
             <p className="mt-2 text-sm text-gray-600">
               Don't have an account?{" "}
               <Link
@@ -92,6 +108,7 @@ const Login = () => {
         </div>
       </div>
     </div>
+    </>
   );
 };
 
